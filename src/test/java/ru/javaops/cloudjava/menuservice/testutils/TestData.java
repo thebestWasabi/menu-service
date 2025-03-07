@@ -31,4 +31,18 @@ public class TestData {
                 .build();
     }
 
+    public static UpdateMenuRequest updateMenuNotFullRequest() {
+        return UpdateMenuRequest.builder()
+                .name("New Cappuccino")
+                .timeToCook(2000L)
+                .imageUrl("http://images.com/new_cappuccino.png")
+                .build();
+    }
+
+    public static UpdateMenuRequest updateMenuNotUniqueRequest() {
+        return UpdateMenuRequest.builder()
+                .name("Hot Dog")
+                .build();
+    }
+
 }
