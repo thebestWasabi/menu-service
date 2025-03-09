@@ -1,6 +1,5 @@
 package ru.javaops.cloudjava.menuservice.service.impl;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,13 +11,11 @@ import ru.javaops.cloudjava.menuservice.dto.UpdateMenuRequest;
 import ru.javaops.cloudjava.menuservice.exception.MenuServiceException;
 import ru.javaops.cloudjava.menuservice.service.MenuService;
 import ru.javaops.cloudjava.menuservice.storage.model.Category;
-import ru.javaops.cloudjava.menuservice.storage.model.MenuItem;
 import ru.javaops.cloudjava.menuservice.storage.repositories.MenuItemRepository;
 import ru.javaops.cloudjava.menuservice.testutils.TestData;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
