@@ -103,4 +103,59 @@ public class MenuItemControllerTest extends BaseTest {
                 .exchange()
                 .expectStatus().isNotFound();
     }
+
+    //Успешное получение блюда по идентификатору.
+    @Test
+    void getMenuItem_returnsMenuItemById_ifItemExistsInDb() {
+        var id = getIdByName("Cappuccino");
+        webTestClient.get()
+                .uri(BASE_URL + "/" + id)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(MenuItemDto.class)
+                .value(response -> {
+                    assertThat(response.getId()).isEqualTo(id);
+                    assertThat(response.getName()).isEqualTo("Cappuccino");
+                });
+    }
+
+    //todo Ошибка при получении несуществующего блюда.
+    @Test
+    void getMenuItem_returnsNotFound_whenItemNotInDb() {
+        var id = 101L;
+        webTestClient.get()
+                .uri(BASE_URL + "/" + id)
+                .exchange()
+                .expectStatus().isNotFound();
+    }
+
+
+    //todo Получение пустого списка блюд из категории, в которой нет блюд.
+    @Test
+    void getMenus_returnsEmptyList_ifNotExistsInDb() {
+        webTestClient.get()
+                .uri(BASE_URL + "?category=Dinner&sort=az")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBodyList(MenuItemDto.class)
+                .value(items -> {
+                    assertThat(items).isEmpty();
+                });
+    }
+
+    //todo Получение корректного отсортированного списка блюд из категории, в которой есть блюда
+    @Test
+    void getMenus_returnsMenusListForDrinks_ifExistsInDb() {
+        webTestClient.get()
+                .uri(BASE_URL + "?category=drinks&sort=az")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBodyList(MenuItemDto.class)
+                .value(items -> {
+                    assertThat(items).hasSize(3);
+                    assertThat(items.get(0).getName()).isEqualTo("Cappuccino");
+                    assertThat(items.get(1).getName()).isEqualTo("Tea");
+                    assertThat(items.get(2).getName()).isEqualTo("Wine");
+                });
+    }
 }
