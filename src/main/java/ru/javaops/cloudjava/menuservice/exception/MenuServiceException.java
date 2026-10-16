@@ -5,12 +5,10 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 public class MenuServiceException extends RuntimeException {
+  private final HttpStatus status;
 
-    private final HttpStatus status;
-
-    public MenuServiceException(String message, HttpStatus status) {
-        super(message);
-        this.status = status;
-    }
-
+  public MenuServiceException(String message, HttpStatus status) {
+    super(message);
+    this.status = status;
+  }
 }
