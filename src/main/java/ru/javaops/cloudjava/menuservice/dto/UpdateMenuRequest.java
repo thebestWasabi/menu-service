@@ -20,4 +20,3 @@ public class UpdateMenuRequest {
     private Long timeToCook;
     private String imageUrl;
 }
-
