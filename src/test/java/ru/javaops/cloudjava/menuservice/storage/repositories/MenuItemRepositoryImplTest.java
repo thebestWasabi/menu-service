@@ -1,8 +1,7 @@
 package ru.javaops.cloudjava.menuservice.storage.repositories;
 
 import jakarta.persistence.EntityManager;
-import jakarta.validation.ConstraintViolationException;
-import org.junit.jupiter.api.Assertions;
+import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -15,7 +14,6 @@ import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javaops.cloudjava.menuservice.dto.SortBy;
-import ru.javaops.cloudjava.menuservice.dto.UpdateMenuRequest;
 import ru.javaops.cloudjava.menuservice.storage.model.Category;
 import ru.javaops.cloudjava.menuservice.storage.model.MenuItem;
 import ru.javaops.cloudjava.menuservice.storage.repositories.updaters.MenuAttrUpdaters;
@@ -80,8 +78,7 @@ class MenuItemRepositoryImplTest {
   @Test
   void updateMenu_updatesNothing_whenNoMenuPresentInDB() {
     var dto = TestData.updateMenuHasNotUniqueName();
-    var id = getIdByName("dummy");
-    int updateCount = menuItemRepository.updateMenu(id, dto);
+    int updateCount = menuItemRepository.updateMenu(100L, dto);
 
     assertThat(updateCount).isEqualTo(0);
   }
